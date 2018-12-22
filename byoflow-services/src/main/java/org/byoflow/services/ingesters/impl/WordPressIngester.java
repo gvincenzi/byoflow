@@ -83,7 +83,7 @@ public class WordPressIngester implements IFlowIngester<FlowResource> {
 				data += "&" + URLEncoder.encode("post_category", "UTF-8") + "="
 						+ URLEncoder.encode(String.valueOf(findCategory(wordPressResource)), "UTF-8");
 
-				formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+				//formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
 				data += "&" + URLEncoder.encode("post_date_gmt", "UTF-8") + "=" + URLEncoder
 						.encode(formatter.format(wordPressResource.getStartDateOfValidity().getTime()), "UTF-8");
 

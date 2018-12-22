@@ -1,6 +1,5 @@
 package org.byoflow.services.sensors.impl;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -247,10 +246,8 @@ public class RSSFlowSensor implements IFlowSensor<FlowResource> {
 	public Map<String, List<String>> getRSSFeedURLByCategory() throws IOException, JDOMException {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
 
-		File xmlFile = rssFile.getFile();
 		SAXBuilder builder = new SAXBuilder();
-
-		Document document = (Document) builder.build(xmlFile);
+		Document document = (Document) builder.build(rssFile.getInputStream());
 		Element rootNode = document.getRootElement();
 		List listCategories = rootNode.getChildren(nodeElementCategory);
 
