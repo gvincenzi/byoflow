@@ -29,9 +29,8 @@ public class Application {
         return args -> {
         	
         	// STARTING FLOW SENSORS
-        	
         	for (IFlowSensor<FlowResource> sensor : sensors) {
-        		sensor.start();
+        		new Thread(sensor).start();
 			}
         };
     }

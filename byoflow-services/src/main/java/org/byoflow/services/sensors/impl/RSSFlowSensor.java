@@ -62,6 +62,9 @@ public class RSSFlowSensor implements IFlowSensor<FlowResource> {
 	@Value("classpath:${XML_RSSFEED_FILENAME}")
 	private Resource rssFile;
 
+	@Value("${RSS_SENSOR_TIMEOUT}")
+	private Integer rssSensorTimeout;
+
 	@Autowired
 	public RSSFlowSensor(IFlowActuator<FlowResource> rssFlowActuator) {
 		LOGGER.info(String.format("RSSFlowSensor has been created with an Actuator of type [%s]",
@@ -80,54 +83,75 @@ public class RSSFlowSensor implements IFlowSensor<FlowResource> {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void start() throws BYOFlowException {
-		LOGGER.info(String.format("RSSFlowSensor has been started with an Actuator of type [%s]",
-				rssFlowActuator.getClass().getName()));
-		Set<FlowResource> resources = new HashSet<FlowResource>();
-		Calendar now = Calendar.getInstance();
-		ArrayList<SyndFeed> feeds = (ArrayList<SyndFeed>) getRSSFeedByCategory();
-		FlowResource resource;
-		Calendar lastDate = getLastChangeDate();
-		for (SyndFeed feed : feeds) {
-			List<SyndEntry> entries = feed.getEntries();
-			for (SyndEntry entry : entries) {
-				try {
-					if (entry.getPublishedDate() == null || entry.getDescription() == null) {
-						continue;
-					}
-					resource = new FlowResource();
-					resource.setName(cleanString(entry.getTitle()));
-					if (entry.getPublishedDate().after(Calendar.getInstance().getTime())) {
-						resource.setStartDateOfValidity(Calendar.getInstance());
-					} else {
-						resource.getStartDateOfValidity().setTime(entry.getPublishedDate());
-					}
-					StringBuffer content = new StringBuffer();
-					SyndContent description = entry.getDescription();
-					List<SyndEnclosure> enclosures = entry.getEnclosures();
-					for (SyndEnclosure enclosure : enclosures) {
-						if (enclosure.getType().contains("image/jpeg") && enclosure.getUrl().length() > 0) {
-							content.append("<img src='" + enclosure.getUrl() + "'/><br>");
+	public void run() {
+		while (true) {
+			LOGGER.info(String.format("RSSFlowSensor has been started with an Actuator of type [%s]",
+					rssFlowActuator.getClass().getName()));
+			try {
+				Calendar now = Calendar.getInstance();
+				LOGGER.info(String.format("RSSFlowSensor - Start check at [%s]", now.getTime()));
+				Set<FlowResource> resources = new HashSet<FlowResource>();
+				ArrayList<SyndFeed> feeds = (ArrayList<SyndFeed>) getRSSFeedByCategory();
+				FlowResource resource;
+				Calendar lastDate = getLastChangeDate();
+				for (SyndFeed feed : feeds) {
+					List<SyndEntry> entries = feed.getEntries();
+					for (SyndEntry entry : entries) {
+						try {
+							if (entry.getPublishedDate() == null || entry.getDescription() == null) {
+								continue;
+							}
+							resource = new FlowResource();
+							resource.setName(cleanString(entry.getTitle()));
+							if (entry.getPublishedDate().after(Calendar.getInstance().getTime())) {
+								resource.setStartDateOfValidity(Calendar.getInstance());
+							} else {
+								resource.getStartDateOfValidity().setTime(entry.getPublishedDate());
+							}
+							StringBuffer content = new StringBuffer();
+							SyndContent description = entry.getDescription();
+							List<SyndEnclosure> enclosures = entry.getEnclosures();
+							for (SyndEnclosure enclosure : enclosures) {
+								if (enclosure.getType().contains("image/jpeg") && enclosure.getUrl().length() > 0) {
+									content.append("<img src='" + enclosure.getUrl() + "'/><br>");
+								}
+							}
+							content.append(description.getValue());
+							String minimizedContent = entry.getLink().length() >= 30 ? entry.getLink().substring(0, 30)
+									: entry.getLink();
+							content.append("<br><a href='" + entry.getLink() + "'>(" + minimizedContent + "...)</a>");
+							resource.setDescription(content.toString());
+							if ((lastDate == null)
+									|| (lastDate != null && resource.getStartDateOfValidity().compareTo(lastDate) > 0
+											&& !resources.contains(resource)
+											&& resource.getStartDateOfValidity().compareTo(now) <= 0)) {
+								resources.add(resource);
+							}
+						} catch (Exception e) {
+							LOGGER.error(e.getMessage());
 						}
 					}
-					content.append(description.getValue());
-					String minimizedContent = entry.getLink().length() >= 30 ? entry.getLink().substring(0, 30)
-							: entry.getLink();
-					content.append("<br><a href='" + entry.getLink() + "'>(" + minimizedContent + "...)</a>");
-					resource.setDescription(content.toString());
-					if ((lastDate == null) || (lastDate != null
-							&& resource.getStartDateOfValidity().compareTo(lastDate) > 0
-							&& !resources.contains(resource)
-							&& resource.getStartDateOfValidity().compareTo(now) <= 0)) {
-						resources.add(resource);
-					}
-				} catch (Exception e) {
-					LOGGER.error(e.getMessage());
 				}
+				LOGGER.info("RSSFlowSensor - Check completed");
+				if (!resources.isEmpty()) {
+					onChange(resources);
+				} else {
+					LOGGER.info("RSSFlowSensor - No changes founded");
+				}
+			} catch (BYOFlowException e) {
+				LOGGER.error(e.getMessage());
+			}
+
+			try {
+				long nextTimeUpdate = rssSensorTimeout * 1000 + System.currentTimeMillis();
+				Calendar nextTimeUpdateCalendar = Calendar.getInstance();
+				nextTimeUpdateCalendar.setTimeInMillis(nextTimeUpdate);
+				LOGGER.info(String.format("RSSFlowSensor next update [%s]", nextTimeUpdateCalendar.getTime()));
+				Thread.sleep(rssSensorTimeout * 1000);
+			} catch (InterruptedException e) {
+				LOGGER.error(e.getMessage());
 			}
 		}
-
-		onChange(resources);
 	}
 
 	/**

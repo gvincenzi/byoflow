@@ -11,8 +11,7 @@ import org.byoflow.model.entity.FlowResource;
  * @author Giuseppe Vincenzi
  *
  */
-public interface IFlowSensor<T extends FlowResource> {
+public interface IFlowSensor<T extends FlowResource> extends Runnable {
 	void onChange(Set<T> resources) throws BYOFlowException;
 	public Calendar getLastChangeDate();
-	void start() throws BYOFlowException;
 }
