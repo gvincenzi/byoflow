@@ -1,4 +1,4 @@
-# BeYourFlow - Ingester Manager
+# BeYourFlow - Open Source Ingestion Manager
 
 ## Installation
 ### Start BYOFlow system
