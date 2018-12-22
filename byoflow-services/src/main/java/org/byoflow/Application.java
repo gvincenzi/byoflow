@@ -1,11 +1,11 @@
-package org.byochain;
+package org.byoflow;
 
 import java.util.Set;
 
-import org.byochain.model.entity.FlowResource;
-import org.byochain.services.conf.DefaultServiceConfig;
-import org.byochain.services.conf.SOFFBlogServiceConfig;
-import org.byochain.services.sensors.IFlowSensor;
+import org.byoflow.model.entity.FlowResource;
+import org.byoflow.services.conf.DefaultServiceConfig;
+import org.byoflow.services.conf.SOFFBlogServiceConfig;
+import org.byoflow.services.sensors.IFlowSensor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

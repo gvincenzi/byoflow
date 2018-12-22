@@ -1,12 +1,12 @@
-package org.byochain.services.actuators.impl;
+package org.byoflow.services.actuators.impl;
 
 import java.util.Calendar;
 import java.util.Set;
 
 import org.byochain.commons.exceptions.BYOFlowException;
-import org.byochain.model.entity.FlowResource;
-import org.byochain.services.actuators.IFlowActuator;
-import org.byochain.services.ingesters.impl.WordPressIngester;
+import org.byoflow.model.entity.FlowResource;
+import org.byoflow.services.actuators.IFlowActuator;
+import org.byoflow.services.ingesters.impl.WordPressIngester;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;

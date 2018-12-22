@@ -1,10 +1,10 @@
-package org.byochain.services.sensors;
+package org.byoflow.services.sensors;
 
 import java.util.Calendar;
 import java.util.Set;
 
 import org.byochain.commons.exceptions.BYOFlowException;
-import org.byochain.model.entity.FlowResource;
+import org.byoflow.model.entity.FlowResource;
 
 /**
  * IFlowSensor

@@ -1,9 +1,9 @@
-package org.byochain.services.ingesters;
+package org.byoflow.services.ingesters;
 
 import java.util.Set;
 
 import org.byochain.commons.exceptions.BYOFlowException;
-import org.byochain.model.entity.FlowResource;
+import org.byoflow.model.entity.FlowResource;
 
 /**
  * IFlowIngester

@@ -1,4 +1,4 @@
-package org.byochain.services.sensors.impl;
+package org.byoflow.services.sensors.impl;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,9 +15,9 @@ import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.byochain.commons.exceptions.BYOFlowException;
-import org.byochain.model.entity.FlowResource;
-import org.byochain.services.actuators.IFlowActuator;
-import org.byochain.services.sensors.IFlowSensor;
+import org.byoflow.model.entity.FlowResource;
+import org.byoflow.services.actuators.IFlowActuator;
+import org.byoflow.services.sensors.IFlowSensor;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -25,6 +25,7 @@ import org.jdom.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import com.sun.syndication.feed.synd.SyndContent;
@@ -45,9 +46,6 @@ public class RSSFlowSensor implements IFlowSensor<FlowResource> {
 	@Value("${RSS_LINK}")
 	private String rssLink;
 	
-	@Value("${XML_RSSFEED_FILENAME}")
-	private String rssFileName;
-	
 	@Value("${NODE_ELEMENT_CATEGORY}")
 	private String nodeElementCategory;
 	
@@ -57,7 +55,8 @@ public class RSSFlowSensor implements IFlowSensor<FlowResource> {
 	@Value("${SPECIAL_CHARS_TO_REMOVE}")
 	private String specialCharsToRemove;
 	
-	
+	@Value("classpath:${XML_RSSFEED_FILENAME}")
+	private Resource rssFile;
 	
 	@Autowired
 	public RSSFlowSensor(IFlowActuator<FlowResource> rssFlowActuator){
@@ -203,7 +202,7 @@ public class RSSFlowSensor implements IFlowSensor<FlowResource> {
 	public Map<String, List<String>> getRSSFeedURLByCategory() throws IOException, JDOMException {
 		Map<String, List<String>> result = new HashMap<String, List<String>>();
 
-		File xmlFile = new File(rssFileName);
+		File xmlFile = rssFile.getFile();
 		SAXBuilder builder = new SAXBuilder();
 
 		Document document = (Document) builder.build(xmlFile);

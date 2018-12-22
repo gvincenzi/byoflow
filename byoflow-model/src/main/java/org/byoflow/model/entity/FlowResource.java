@@ -1,4 +1,4 @@
-package org.byochain.model.entity;
+package org.byoflow.model.entity;
 
 import java.util.Calendar;
 

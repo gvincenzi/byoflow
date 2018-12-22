@@ -1,9 +1,9 @@
-package org.byochain.services.actuators;
+package org.byoflow.services.actuators;
 
 import java.util.Set;
 
 import org.byochain.commons.exceptions.BYOFlowException;
-import org.byochain.model.entity.FlowResource;
+import org.byoflow.model.entity.FlowResource;
 
 /**
  * IFlowActuator

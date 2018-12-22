@@ -1,4 +1,4 @@
-package org.byochain.services.ingesters.impl;
+package org.byoflow.services.ingesters.impl;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -23,8 +23,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.byochain.commons.exceptions.BYOFlowException;
-import org.byochain.model.entity.FlowResource;
-import org.byochain.services.ingesters.IFlowIngester;
+import org.byoflow.model.entity.FlowResource;
+import org.byoflow.services.ingesters.IFlowIngester;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Attr;
@@ -57,7 +57,6 @@ public class WordPressIngester implements IFlowIngester<FlowResource> {
 	private String wordPressWSURL;
 	
 	@Value("#{${categories}}")
-	//@Value("${categories:}#{T(java.util.Collections).emptyMap()}")
 	private Map<Integer, String> categoryMap;
 
 	@SuppressWarnings("unused")

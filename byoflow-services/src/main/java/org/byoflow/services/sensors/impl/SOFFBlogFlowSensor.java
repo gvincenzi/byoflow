@@ -1,9 +1,9 @@
-package org.byochain.services.sensors.impl;
+package org.byoflow.services.sensors.impl;
 
 import java.util.Calendar;
 
 import org.byochain.commons.exceptions.BYOFlowException;
-import org.byochain.services.actuators.impl.SOFFBlogActuator;
+import org.byoflow.services.actuators.impl.SOFFBlogActuator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;

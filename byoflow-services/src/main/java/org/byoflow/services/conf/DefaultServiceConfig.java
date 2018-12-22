@@ -1,10 +1,10 @@
-package org.byochain.services.conf;
+package org.byoflow.services.conf;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.byochain.model.entity.FlowResource;
-import org.byochain.services.sensors.IFlowSensor;
+import org.byoflow.model.entity.FlowResource;
+import org.byoflow.services.sensors.IFlowSensor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
