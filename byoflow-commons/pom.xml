@@ -12,24 +12,11 @@
 	<description>Commons module</description>
 
 	<dependencies>
-		<!-- Need this for json to/from object -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-    		<artifactId>jackson-annotations</artifactId>
-		</dependency>
-		
 		<!-- Need this to generate a password -->
 		<dependency>
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-lang3</artifactId>
 		    <version>3.0</version>
 		</dependency>
-		
-		<!-- Need this to generate a password -->
-		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-crypto</artifactId>
-		</dependency>
-		
 	</dependencies>
 </project>
