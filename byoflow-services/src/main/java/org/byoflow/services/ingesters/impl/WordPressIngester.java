@@ -25,6 +25,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.byochain.commons.exceptions.BYOFlowException;
 import org.byoflow.model.entity.FlowResource;
 import org.byoflow.services.ingesters.IFlowIngester;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Attr;
@@ -37,6 +39,7 @@ import org.xml.sax.SAXParseException;
 
 @Service
 public class WordPressIngester implements IFlowIngester<FlowResource> {
+	private static Logger LOGGER = LoggerFactory.getLogger(WordPressIngester.class);
 	private static final int DEFAULT_CATEGORY = 1;
 
 	/**
@@ -62,7 +65,9 @@ public class WordPressIngester implements IFlowIngester<FlowResource> {
 	@SuppressWarnings("unused")
 	@Override
 	public void ingest(Set<FlowResource> contents) throws BYOFlowException{
+		LOGGER.info(String.format("WordPressIngester ingest has been called for [%d] contents",contents.size()));
 		for (FlowResource wordPressResource : contents) {
+			LOGGER.info(String.format("Ingestion of content [%s]",wordPressResource.getName()));
 			try {
 				String data = URLEncoder.encode("method", "UTF-8") + "=" + URLEncoder.encode("insertPost", "UTF-8");
 				data += "&" + URLEncoder.encode("post_title", "UTF-8") + "="
@@ -130,7 +135,7 @@ public class WordPressIngester implements IFlowIngester<FlowResource> {
 				throw new BYOFlowException(e);
 			}
 		}
-
+		LOGGER.info(String.format("WordPressIngester ingest successfully terminated for [%d] contents",contents.size()));
 	}
 
 	private Integer findCategory(FlowResource media) throws BYOFlowException {
