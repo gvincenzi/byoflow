@@ -2,13 +2,15 @@
 <rssfeed_root>
 	<rssfeed_category name="news">
 		<rssfeed_entry url="http://rss.jobsearch.monster.com/rssquery.ashx?rad_units=km&amp;cy=it&amp;pp=15&amp;sort=rv.di.dt&amp;geo=Calabria%2c2%2c0%2c0%2c1257&amp;baseurl=offerte-lavoro.monster.it"/>
-		<rssfeed_entry url="http://www.lavoro-formazione.it/feed.html"/>
 		<rssfeed_entry url="https://www.cliclavoro.gov.it/_layouts/15/ClicLavoro.Web/WebPages/rss.aspx?feed=Offerte"/>
-		<rssfeed_entry url="http://www.lavoro.org/feedrss/rss_cat0.xml"/>
-		<rssfeed_entry url="http://miojob.repubblica.it/rss/offerte/lavoro/cerca/offer_location_region-calabria"/>
+		<rssfeed_entry url="https://www.repubblica.it/economia/miojob/rss/offerte/lavoro/cerca/provincia-cosenza"/>
 		<rssfeed_entry url="http://www.concorsidilavoro.com/offerte-di-lavoro?format=feed&amp;type=rss"/>
 		<rssfeed_entry url="http://www.concorsidilavoro.com/concorsi-pubblici-e-privati?format=feed&amp;type=rss"/>
 		<rssfeed_entry url="http://www.concorsidilavoro.com/stagecorsi-e-master?format=feed&amp;type=rss"/>
-		<rssfeed_entry url="http://www.jobijoba.it/rss?what=&amp;where=nella-Provincia-di-Cosenza&amp;where_type=region2"/>		
+		<rssfeed_entry url="https://it.indeed.com/rss?q=&amp;l=Cosenza%2C+Calabria"/>
+		<rssfeed_entry url="https://lavoro.corriere.it/Annunci.aspx?XSLTTYpe=2&amp;SedeID=/2568724/2568746/2568747/&amp;btnCercaClicked=True&amp;btnCercaClicked=True"/>
+		<rssfeed_entry url="https://www.repubblica.it/economia/miojob/rss/offerte/lavoro/cerca/offer_location_region-calabria"/>
+		<rssfeed_entry url="https://www.jobbydoo.it/blog/feed"/>
+		<rssfeed_entry url="https://www.lavoraconnoi-italia.it/feed/"/>
 	</rssfeed_category>
 </rssfeed_root>
