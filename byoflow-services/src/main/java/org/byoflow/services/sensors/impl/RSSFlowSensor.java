@@ -199,6 +199,8 @@ public class RSSFlowSensor implements IFlowSensor<FlowResource> {
 					continue;
 				} catch (IOException e) {
 					continue;
+				} catch (java.lang.IllegalArgumentException e) {
+					continue;
 				}
 
 				newFeed.setLink(rssLink);
